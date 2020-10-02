@@ -2,7 +2,8 @@ package TheRoad;
 
 import java.util.Scanner;
 
-public class Menu {
+public class
+Menu {
 
     //TODO: don't have Scanner sitting everywhere "do not repeat yourself"
 
