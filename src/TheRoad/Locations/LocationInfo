@@ -1,0 +1,15 @@
+Location name, ID
+RoadStart, 0
+RoadWalk, 1
+RoadCamp, 2
+RoadAttacked, 3
+RoadAttackedDeath, 4
+RoadBoss, 5
+RoadSteal, 6
+RoadOtherTravelers, 7
+RoadStealSuccess, 8
+RoadStealFail, 9
+RoadBossPayOff, 10
+RoadFight, 11
+RoadBossDeath, 12
+RoadBossWin,13

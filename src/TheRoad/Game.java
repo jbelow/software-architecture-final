@@ -1,47 +1,67 @@
 package TheRoad;
 
+import TheRoad.Locations.*;
+import TheRoad.Locations.BossEnd.*;
+import TheRoad.Locations.SleepChoice.*;
+import TheRoad.Locations.WalkChoice.*;
+
 import java.util.Scanner;
 
 public class Game {
 
     private final Scanner scanner = new Scanner(System.in);
     private int currentLocationId;
+    String location;
 
     public void runGame() {
 
         //set the first location
         Location gameLocation = new Location(new RoadStart());
         currentLocationId = gameLocation.getLocationId();
-//        System.out.println("this is the first location " + currentLocationId);
+        System.out.println("this is the first location " + currentLocationId);
 
 
         System.out.println("your new live has started:");
 
         //TODO: ask for the name and what class they want to be
 
-        System.out.println("You are currently on the road heading to the infamous city of “lots of golden cool stuffs ” " +
-                "Would you like to head on your way to get a head start on all the other travelers or set up camp and prepare before your long journey. " +
-                "\n1) set camp \n2) start walking");
+        location = gameLocation.getLocation();
+        System.out.println(location);
+
+
+
+
         int choice = 0;
         while (choice != 3) {
 
-            choice = scanner.nextInt();
+            choice = Integer.parseInt(scanner.nextLine());
             if (choice == 1) {
+                System.out.println("Choice test");
                 switch (currentLocationId) {
 
                     //the case is to find out what location the player is at with the id
-                    case 1:
+                    //aka case = Location ID
+                    case 0:
+
                         gameLocation = new Location(new RoadCamp());
                         currentLocationId = gameLocation.getLocationId();
                         System.out.println("it is resetting the current location to 2: " + currentLocationId);
 
-                    case 2:
+                    case 1:
+                        gameLocation = new Location(new RoadOtherTravelers());
+                        currentLocationId = gameLocation.getLocationId();
+
+                    case 2: //TODO: this will not be a choice but instead a random event
+                        gameLocation = new Location(new RoadAttacked());
+                        currentLocationId = gameLocation.getLocationId();
 
                     case 3:
 
                     case 4:
 
                     case 5:
+                        gameLocation = new Location(new RoadBossPayOff());
+                        currentLocationId = gameLocation.getLocationId();
 
                     case 6:
 
@@ -63,15 +83,26 @@ public class Game {
 
             } else if (choice == 2) {
                 switch (currentLocationId) {
-                    case 1:
+                    case 0:
+                        gameLocation = new Location(new RoadWalk());
+                        currentLocationId = gameLocation.getLocationId();
 
-                    case 2:
+                    case 1:
+                        gameLocation = new Location(new RoadSteal());
+                        currentLocationId = gameLocation.getLocationId();
+
+                    case 2: //TODO: this will not be a choice but instead a random event
+                        //TODO: this just sends the player to the boss but need to add some info text about what happened in the night
+                        gameLocation = new Location(new RoadBoss());
+                        currentLocationId = gameLocation.getLocationId();
 
                     case 3:
 
                     case 4:
 
                     case 5:
+                        gameLocation = new Location(new RoadBossFight());
+                        currentLocationId = gameLocation.getLocationId();
 
                     case 6:
 

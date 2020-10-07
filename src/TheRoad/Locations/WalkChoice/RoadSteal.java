@@ -1,4 +1,6 @@
-package TheRoad;
+package TheRoad.Locations.WalkChoice;
+
+import TheRoad.Locations.LocationStrategy;
 
 public class RoadSteal implements LocationStrategy {
     @Override
@@ -8,6 +10,6 @@ public class RoadSteal implements LocationStrategy {
 
     @Override
     public int getLocationId() {
-        return 0;
+        return 6;
     }
 }

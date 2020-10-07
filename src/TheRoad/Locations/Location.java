@@ -1,4 +1,4 @@
-package TheRoad;
+package TheRoad.Locations;
 
 public class Location {
 

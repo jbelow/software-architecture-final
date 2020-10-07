@@ -2,8 +2,7 @@ package TheRoad;
 
 import java.util.Scanner;
 
-public class
-Menu {
+public class Menu {
 
     //TODO: don't have Scanner sitting everywhere "do not repeat yourself"
 
@@ -18,7 +17,7 @@ Menu {
             int choice = 0;
             while (choice != 3) {
                 printMenu();
-                choice = scanner.nextInt();
+                choice = Integer.parseInt(scanner.nextLine());
 
                 switch (choice) {
                     case 1:
