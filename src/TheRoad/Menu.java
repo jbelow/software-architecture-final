@@ -10,6 +10,10 @@ public class Menu {
 
 
     public static void main(String[] args) {
+
+        //NOTE: new Game().runGame(); is here for dev work
+        new Game().runGame();
+
         new Menu().startMenu();
     }
 

@@ -12,4 +12,9 @@ public class RoadBoss implements LocationStrategy {
     public int getLocationId() {
         return 5;
     }
+
+
+
+
+
 }

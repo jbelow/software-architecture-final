@@ -1,5 +1,7 @@
-package TheRoad.Locations;
+package TheRoad.Locations.SleepChoice;
 
+
+import TheRoad.Locations.LocationStrategy;
 
 public class RoadCamp implements LocationStrategy {
 
