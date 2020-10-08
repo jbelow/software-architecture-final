@@ -9,7 +9,6 @@ public class ConsoleWriter implements Writer{
      */
     @Override
     public void writeln(String line) {
-        System.out.println("Here is the text you entered, which I've copied below.");
         System.out.println(line);
     }
 }
