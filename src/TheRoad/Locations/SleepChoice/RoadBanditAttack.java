@@ -2,7 +2,7 @@ package TheRoad.Locations.SleepChoice;
 
 import TheRoad.Locations.LocationStrategy;
 
-public class RoadAttacked implements LocationStrategy {
+public class RoadBanditAttack implements LocationStrategy {
     @Override
     public String getLocation() {
         return null;

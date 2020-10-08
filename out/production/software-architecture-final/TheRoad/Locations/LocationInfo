@@ -1,15 +1,15 @@
-Location name, ID
-RoadStart, 0
-RoadWalk, 1
-RoadCamp, 2
-RoadAttacked, 3
-RoadAttackedDeath, 4
-RoadBoss, 5
-RoadSteal, 6
-RoadOtherTravelers, 7
-RoadStealSuccess, 8
-RoadStealFail, 9
-RoadBossPayOff, 10
-RoadFight, 11
-RoadBossDeath, 12
-RoadBossWin,13
+Location name,      ID,     Type
+RoadStart,          0,      UserChoice
+RoadWalk,           1,      UserChoice
+RoadCamp,           2,      UserChoice
+RoadAttacked,       3,      Event
+RoadAttackedDeath,  4,      Ending
+RoadBoss,           5,      UserChoice
+RoadSteal,          6,      Event
+RoadOtherTravelers, 7,      Event
+RoadStealSuccess,   8
+RoadStealFail,      9,      Ending
+RoadBossPayOff,     10
+RoadFight,          11,     Event
+RoadBossDeath,      12,     Ending
+RoadBossWin,        13,     Ending

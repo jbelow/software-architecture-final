@@ -16,6 +16,7 @@ public final class LocationType {
     public static int[] getTypeEnding(){
         return endingLocation;
     }
+
     
 
 }

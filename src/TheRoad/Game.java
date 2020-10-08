@@ -1,16 +1,18 @@
 package TheRoad;
 
+import TheRoad.Events.Event;
+import TheRoad.Events.EventFactory;
 import TheRoad.Locations.*;
 import TheRoad.Locations.BossEnd.*;
 import TheRoad.Locations.SleepChoice.*;
 import TheRoad.Locations.WalkChoice.*;
+import TheRoad.Events.*;
 
 import java.util.Scanner;
 
 public class Game {
 
     private final Scanner scanner = new Scanner(System.in);
-
 
 
     public void runGame() {
@@ -24,26 +26,34 @@ public class Game {
 
         //TODO: ask for the name and what class they want to be
 
-        location = gameLocation.getLocation();
-        System.out.println(location);
-
-        //there are some locations that aren't a user choice - first we check if it is a event(an event could be righting or trying to steal) then if it isn't then it goes to choice
-        //TODO: I'm not sure if this is the best setup for this
-        if (checkEnding(currentLocationId)) {
-            //find out what ending it is and run the last text then ask if the player wants to play again
+        //game loop
+        do {
+            location = gameLocation.getLocation();
+            System.out.println(location);
 
 
-        } else if (checkEvent(currentLocationId)) {
-            //find out what event it is and run it
+            //there are some locations that aren't a user choice - first we check if it is a event(an event could be righting or trying to steal) then if it isn't then it goes to choice
+            //TODO: I'm not sure if this is the best setup for this
+            if (checkEnding(currentLocationId)) {
+                //find out what ending it is and run the last text then ask if the player wants to play again
+                System.out.println("TEST: this is an ending");
 
-        } else {
-            userChoice(currentLocationId, gameLocation);
-        }
+            } else if (checkEvent(currentLocationId)) {
+                //find out what event it is and run it
+                System.out.println("TEST: this is an event");
+                Event newEvent = EventFactory.getEvent(currentLocationId);
+                newEvent.runEvent();
+
+            } else {
+                userChoice(currentLocationId, gameLocation);
+            }
+        } while (true);
+
 
     }
 
-    public boolean checkEnding(int currentLocationId){
-        //temp list of endings and events
+    public boolean checkEnding(int currentLocationId) {
+        //checks to see if the currentLocationId is an ending
         int[] endingLocation = LocationType.getTypeEnding();
 
         for (int x : endingLocation) {
@@ -54,9 +64,9 @@ public class Game {
         return false;
     }
 
-    public boolean checkEvent(int currentLocationId){
-        //temp list of endings and events
-        int[] eventLocation = LocationType.getTypeEnding();
+    public boolean checkEvent(int currentLocationId) {
+        //checks to see if the currentLocationId is an event
+        int[] eventLocation = LocationType.getTypeEvent();
 
         for (int x : eventLocation) {
             if (x == currentLocationId) {
@@ -87,7 +97,7 @@ public class Game {
                     return gameLocation.getLocationId();
 
                 case 2: //TODO: this will not be a choice but instead a random event
-                    gameLocation = new Location(new RoadAttacked());
+                    gameLocation = new Location(new RoadBanditAttack());
                     return gameLocation.getLocationId();
 
                 case 5:
@@ -107,7 +117,7 @@ public class Game {
                     return gameLocation.getLocationId();
 
                 case 2: //TODO: this will not be a choice but instead a random event
-                        //TODO: this just sends the player to the boss but need to add some info text about what happened in the night
+                    //TODO: this just sends the player to the boss but need to add some info text about what happened in the night
                     gameLocation = new Location(new RoadBoss());
                     return gameLocation.getLocationId();
 
