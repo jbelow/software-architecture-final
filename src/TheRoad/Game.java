@@ -14,7 +14,7 @@ public class Game {
 
 
     public void runGame() {
-        Location gameLocation = new Location(new RoadStart()); //TODO: is it ok to have this here? (I'm not sure how to have it so that both runGame and userChoice can access it
+        Location gameLocation = new Location(new RoadStart());
         int currentLocationId;
         String location;
 
@@ -32,6 +32,7 @@ public class Game {
         if (checkEnding(currentLocationId)) {
             //find out what ending it is and run the last text then ask if the player wants to play again
 
+
         } else if (checkEvent(currentLocationId)) {
             //find out what event it is and run it
 
@@ -43,9 +44,9 @@ public class Game {
 
     public boolean checkEnding(int currentLocationId){
         //temp list of endings and events
-        int[] endingsLocations = {4, 9, 12, 13};
+        int[] endingLocation = LocationType.getTypeEnding();
 
-        for (int x : endingsLocations) {
+        for (int x : endingLocation) {
             if (x == currentLocationId) {
                 return true;
             }
@@ -55,9 +56,9 @@ public class Game {
 
     public boolean checkEvent(int currentLocationId){
         //temp list of endings and events
-        int[] eventLocations = {3, 6, 7, 11 };
+        int[] eventLocation = LocationType.getTypeEnding();
 
-        for (int x : eventLocations) {
+        for (int x : eventLocation) {
             if (x == currentLocationId) {
                 return true;
             }
@@ -72,12 +73,6 @@ public class Game {
         if (choice == 1) {
 //            System.out.println("Choice test");
             switch (currentLocationId) {
-
-                //TODO: what way should I get the id back to runGame either:
-                //make this method return an int
-                //make the currentLocationId global (I don't think this is the right idea but I'm not sure if the first one is the right idea)
-                //currentLocationId = gameLocation.getLocationId();
-                //return gameLocation.getLocationId();
 
                 //the case is to find out what location the player is at with the id
                 //aka case = Location ID
@@ -112,7 +107,7 @@ public class Game {
                     return gameLocation.getLocationId();
 
                 case 2: //TODO: this will not be a choice but instead a random event
-                    //TODO: this just sends the player to the boss but need to add some info text about what happened in the night
+                        //TODO: this just sends the player to the boss but need to add some info text about what happened in the night
                     gameLocation = new Location(new RoadBoss());
                     return gameLocation.getLocationId();
 
@@ -121,9 +116,8 @@ public class Game {
                     return gameLocation.getLocationId();
             }
         }
-
-        //TODO: not the best idea to send back to the start but I hope it never gets here
-        return 404;
+        return gameLocation.getLocationId();
+        //return 404;
     }
 
 }

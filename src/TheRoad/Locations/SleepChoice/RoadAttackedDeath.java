@@ -13,7 +13,4 @@ public class RoadAttackedDeath implements LocationStrategy {
         return 4;
     }
 
-    public boolean ending(){
-        return true;
-    }
 }
