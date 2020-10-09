@@ -17,6 +17,12 @@ import java.util.Random;
  * NOTE TO THE TEACHER: I haven't added all of the logic yet for the userChoice (besides id: 0 and 2 to make sure it works)
  * or the events (I want to add NPCs aka the traveler, bandits and the boss for the player to interact with)
  * Is it fine that the game will move to the event and run there for everything that will happen? the idea is that the fighting/talking with NPCs will be handled there
+ *
+ *right now the game will just looping a broken away but all the necessary classes should be in place to prevent that when I reconstruct all the locations are all connected fully
+ *
+ * Any System.out.println are temp and meant for debugging
+ *
+ *
  */
 
 public class Game {
@@ -139,19 +145,19 @@ public class Game {
                     // Generate random integers in range 0 to 2
                     double x = Math.random();
 
-                    do {
-                        if (x > 0.5 ) {
-                            gameLocation = new Location(new RoadBanditAttack());
-//                            return gameLocation.getLocationId();
-                            System.out.println("you are getting attacked");
 
-                        } else {
-                            System.out.println("some text before you meet the boss");
-                            gameLocation = new Location(new RoadBoss());
-//                            return gameLocation.getLocationId();
+                    if (x > 0.5 ) {
+                        gameLocation = new Location(new RoadBanditAttack());
+                        System.out.println("you are getting attacked");
+                        return gameLocation.getLocationId();
 
-                        }
-                    } while (true);
+                    } else {
+                        System.out.println("some text before you meet the boss");
+                        gameLocation = new Location(new RoadBoss());
+                        return gameLocation.getLocationId();
+
+                    }
+
 
 
 
