@@ -1,6 +1,6 @@
 package TheRoad;
 
-import TheRoad.Reader.IntKeyboardReader;
+import TheRoad.Reader.KeyboardReader;
 import TheRoad.Reader.Reader;
 import TheRoad.Writer.ConsoleWriter;
 import TheRoad.Writer.Writer;
@@ -10,7 +10,7 @@ public class Menu {
     //TODO: don't have Scanner sitting everywhere "do not repeat yourself"
 
     private final Writer consoleOutput = new ConsoleWriter();
-    private final Reader playerIntInput = new IntKeyboardReader();
+    private final Reader playerIntInput = new KeyboardReader();
 
 
     public static void main(String[] args) {
@@ -25,7 +25,7 @@ public class Menu {
         int choice = 0;
         while (choice != 3) {
             printMenu();
-            choice = playerIntInput.readln();
+            choice = Integer.parseInt(playerIntInput.readln());
 
             switch (choice) {
                 case 1:

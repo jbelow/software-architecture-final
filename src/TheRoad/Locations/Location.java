@@ -2,7 +2,7 @@ package TheRoad.Locations;
 
 public class Location {
 
-    private LocationStrategy location;
+    private final LocationStrategy location;
 
     public Location(LocationStrategy location) {
         this.location = location;

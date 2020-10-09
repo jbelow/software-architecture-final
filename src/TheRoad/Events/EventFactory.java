@@ -4,9 +4,7 @@ public class EventFactory {
 
     //use getEvent method to get object of type event
     public static Event getEvent(int currentLocationId) {
-//        if(currentLocationId == null){
-//            return null;
-//        }
+
         if (currentLocationId == 3) {
             return new BanditAttackEvent();
 
