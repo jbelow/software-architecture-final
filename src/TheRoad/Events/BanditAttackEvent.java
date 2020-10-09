@@ -20,6 +20,11 @@ public class BanditAttackEvent implements Event {
 
             //if player beats the bandits
             return 5;
+
+
+
+
+
         } else {
             //player dies
             return 4;

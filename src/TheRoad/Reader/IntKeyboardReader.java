@@ -2,7 +2,7 @@ package TheRoad.Reader;
 
 import java.util.Scanner;
 
-public class KeyboardReader implements Reader {
+public class IntKeyboardReader implements Reader {
     /**
      * Reads characters from the keyboard until a carriage return is entered.
      *
