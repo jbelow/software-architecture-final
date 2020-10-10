@@ -1,33 +1,43 @@
 package TheRoad.Events;
 
+import TheRoad.Characters.CharacterStrategy;
+import TheRoad.Characters.EnemyBandits;
 import TheRoad.Locations.BossEnd.RoadBoss;
 import TheRoad.Locations.Location;
 import TheRoad.Locations.SleepChoice.RoadBanditAttackDeath;
+import TheRoad.Writer.ConsoleWriter;
+import TheRoad.Writer.Writer;
 
 public class BanditAttackEvent implements Event {
 
+    private final Writer consoleOutput = new ConsoleWriter();
+
+
     @Override
-    public Location runEvent() {
+    public Location runEvent(CharacterStrategy playerCharacter, Location gameLocation) {
 
-        boolean outcome;
-        String eventInfo = "this is the getting attacked by bandits event";
+        CharacterStrategy enemy = new EnemyBandits();
+        System.out.println(gameLocation.getLocation());
 
-        System.out.println(eventInfo);
+        //battle loop
+        while (true){
+            //player always gets to go first (this is a nice game)
+            enemy.setHealth(enemy.getHealth() - playerCharacter.getDamage());
+            consoleOutput.writeln("You hit " + enemy.getName() + " for " + playerCharacter.getDamage());
+            consoleOutput.writeln("The health of the " + enemy.getName() + " is now " + enemy.getHealth());
+            if (enemy.getHealth() <= 0) {
+                return new Location(new RoadBoss());
+            }
 
-
-        //temp logic for testing the flow of the game
-        outcome = false;
-
-
-        if (outcome) { // giving the id that I want to be the next location
-            //if player beats the bandits
-            return new Location(new RoadBoss());
-
-        } else {
-            //player dies
-            return new Location(new RoadBanditAttackDeath());
+            playerCharacter.setHealth(playerCharacter.getHealth() - enemy.getDamage());
+            consoleOutput.writeln("You got hit for " + enemy.getDamage());
+            consoleOutput.writeln("your health is now " + playerCharacter.getHealth());
+            if (playerCharacter.getHealth() <= 0) {
+                return new Location(new RoadBanditAttackDeath());
+            }
         }
 
 
     }
+
 }

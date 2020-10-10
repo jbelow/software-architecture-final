@@ -11,7 +11,6 @@ import TheRoad.Writer.Writer;
  * The Strategy Pattern
  * The Singleton Pattern
  * The Factory Method
- * An Additional Pattern (10 points Extra)
  * Documented with JavaDoc
  * JUnit
  *

@@ -1,29 +1,36 @@
 package TheRoad.Characters;
 
 public class EnemyOswyn implements CharacterStrategy {
+    private int health = 150;
+
 
     @Override
-    public String name() {
+    public String getName() {
         return "Oswyn";
     }
 
     @Override
-    public String discretion() {
+    public String getDiscretion() {
         return "an old man that seems harmless.";
     }
 
     @Override
-    public int health() {
-        return 200;
+    public int getHealth() {
+        return health;
     }
 
     @Override
-    public int damage() {
-        return 30;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     @Override
-    public int speed() {
+    public int getDamage() {
+        return 10;
+    }
+
+    @Override
+    public int getSpeed() {
         return 10;
     }
 

@@ -1,12 +1,13 @@
 package TheRoad.Events;
 
+import TheRoad.Characters.CharacterStrategy;
 import TheRoad.Locations.BossEnd.RoadBoss;
 import TheRoad.Locations.Location;
 import TheRoad.Locations.WalkChoice.RoadStealFail;
 
 public class StealEvent implements Event {
     @Override
-    public Location runEvent() {
+    public Location runEvent(CharacterStrategy playerCharacter, Location gameLocation) {
         boolean outcome;
 
         String eventInfo = "this is the trying to steal event event";

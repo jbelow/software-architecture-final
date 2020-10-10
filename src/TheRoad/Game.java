@@ -58,11 +58,11 @@ public class Game {
                 default:
                     throw new IllegalStateException("Unexpected value: " + i);
             }
-            consoleOutput.writeln("Name: " + display.name());
-            consoleOutput.writeln("Discretion: " + display.discretion());
-            consoleOutput.writeln("Health: " + String.valueOf(display.health()));
-            consoleOutput.writeln("Damage: " + String.valueOf(display.damage()));
-            consoleOutput.writeln("Speed: " + String.valueOf(display.speed()));
+            consoleOutput.writeln("Name: " + display.getName());
+            consoleOutput.writeln("Discretion: " + display.getDiscretion());
+            consoleOutput.writeln("Health: " + String.valueOf(display.getHealth()));
+            consoleOutput.writeln("Damage: " + String.valueOf(display.getDamage()));
+            consoleOutput.writeln("Speed: " + String.valueOf(display.getSpeed()));
             consoleOutput.writeln("--------------------------------------------");
 
         }
@@ -81,7 +81,7 @@ public class Game {
 
         } else {
             playerCharacter = new Knight();
-            consoleOutput.writeln("It seems like you didn't pick an option the game gave so you get: " + playerCharacter.name());
+            consoleOutput.writeln("It seems like you didn't pick an option the game gave so you get: " + playerCharacter.getName());
         }
 
         consoleOutput.writeln("Loading game...");
@@ -97,11 +97,7 @@ public class Game {
 
             if (checkEnding(gameLocation)) {
 
-
                 String wantsToPlayAgain;
-
-                //find out what ending it is and run the last text then ask if the player wants to play again
-                consoleOutput.writeln(gameLocation.getLocation());
 
                 consoleOutput.writeln("Do you want to play again? Y : N");
                 wantsToPlayAgain = playerInput.readln().toLowerCase();
@@ -121,7 +117,7 @@ public class Game {
                 //find out what event it is and run it
 //                System.out.println("TEST: this is an event");
                 Event newEvent = EventFactory.getEvent(gameLocation.getLocationId());
-                gameLocation = newEvent.runEvent();
+                gameLocation = newEvent.runEvent(playerCharacter, gameLocation);
                 System.out.println(gameLocation.getLocationId());
 
             } else {
@@ -258,4 +254,3 @@ public class Game {
     }
 
 }
-

@@ -11,9 +11,6 @@ public class EventFactory {
         } else if (currentLocationId == 6) {
             return new StealEvent();
 
-        } else if (currentLocationId == 7) {
-            return new TalkToTravelersEvent();
-
         } else if (currentLocationId == 11) {
             return new BossFightEvent();
         }
