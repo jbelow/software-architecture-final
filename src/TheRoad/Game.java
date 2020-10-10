@@ -16,9 +16,9 @@ import TheRoad.Characters.*;
  * NOTE TO THE TEACHER: I haven't added all of the logic yet for the userChoice (besides id: 0 and 2 to make sure it works)
  * or the events (I want to add NPCs aka the traveler, bandits and the boss for the player to interact with)
  * Is it fine that the game will move to the event and run there for everything that will happen? the idea is that the fighting/talking with NPCs will be handled there
- * <p>
+ *
  * right now the game will just looping a broken away but all the necessary classes should be in place to prevent that when I reconstruct all the locations are all connected fully
- * <p>
+ *
  * Any System.out.println are temp and meant for debugging
  */
 
@@ -30,14 +30,12 @@ public class Game {
     private final Writer consoleOutput = new ConsoleWriter();
     private final Reader playerInput = new KeyboardReader();
 
+    //this is a boolean so that if the player wants to play again can be sent back
     public boolean runGame() {
 
         CharacterStrategy playerCharacter;
         Location gameLocation;
 
-
-
-//      String location;
         String playerCharacterChoice;
         CharacterStrategy display;
 
@@ -89,13 +87,6 @@ public class Game {
         consoleOutput.writeln("Loading game...");
         //setting up the game at the RoadStart
         gameLocation = new Location(new RoadStart());
-
-
-
-        //getting the test for the location
-        //TODO I don't need to be passing this around if I can just call gameLocation
-//        location = gameLocation.getLocation();
-
         consoleOutput.writeln("Game loaded :)");
 
 
@@ -120,8 +111,9 @@ public class Game {
                     return true;
 
                 } else {
-                    consoleOutput.writeln("Understandable, have a great day!");
-                    System.exit(0);
+
+                    consoleOutput.writeln("Understandable, have a great day.");
+                    return false;
 
                 }
 
@@ -134,9 +126,9 @@ public class Game {
 
             } else {
 //                System.out.println("TEST: this is an user choice");
-                consoleOutput.writeln("before userChoice the location id is: " + gameLocation.getLocationId());
+//                consoleOutput.writeln("before userChoice the location id is: " + gameLocation.getLocationId());
                 gameLocation = userChoice(gameLocation);
-                consoleOutput.writeln("after userChoice the location id is: " + gameLocation.getLocationId());
+//                consoleOutput.writeln("after userChoice the location id is: " + gameLocation.getLocationId());
 
 
             }
