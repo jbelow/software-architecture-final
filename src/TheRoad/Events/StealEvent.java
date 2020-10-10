@@ -1,8 +1,12 @@
 package TheRoad.Events;
 
+import TheRoad.Locations.BossEnd.RoadBoss;
+import TheRoad.Locations.Location;
+import TheRoad.Locations.WalkChoice.RoadStealFail;
+
 public class StealEvent implements Event {
     @Override
-    public int runEvent() {
+    public Location runEvent() {
         boolean outcome;
 
         String eventInfo = "this is the trying to steal event event";
@@ -14,10 +18,10 @@ public class StealEvent implements Event {
 
         if (outcome) { // giving the id that I want to be the next location
             //if player is able to get away with stealing
-            return 5;
+            return new Location(new RoadBoss());
         } else {
             //player is caught
-            return 9;
+            return new Location(new RoadStealFail());
         }
     }
 }

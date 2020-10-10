@@ -25,20 +25,24 @@ import TheRoad.Characters.*;
 public class Game {
 
     //TODO: this is going to be temp before the logic is in place for random events
-    int choice = 0;
+    int choice;
 
     private final Writer consoleOutput = new ConsoleWriter();
     private final Reader playerInput = new KeyboardReader();
 
     public boolean runGame() {
-        int currentLocationId;
-//        String location;
-        String playerCharacterChoice;
 
+        CharacterStrategy playerCharacter;
+        Location gameLocation;
+
+
+
+//      String location;
+        String playerCharacterChoice;
         CharacterStrategy display;
 
         consoleOutput.writeln("Before you begin please pick a class:");
-        for (int i = 0; i < 3 ; i++) {
+        for (int i = 0; i < 3; i++) {
 
             switch (i) {
                 case 0:
@@ -67,27 +71,26 @@ public class Game {
         consoleOutput.writeln(">");
         playerCharacterChoice = playerInput.readln();
 
+
         if (playerCharacterChoice.equals("Knight")) {
-            CharacterStrategy playerCharacter = new Knight();
+            playerCharacter = new Knight();
 
         } else if (playerCharacterChoice.equals("Archer")) {
-            CharacterStrategy playerCharacter = new Archer();
+            playerCharacter = new Archer();
 
         } else if (playerCharacterChoice.equals("Thief")) {
-            CharacterStrategy playerCharacter = new Thief();
+            playerCharacter = new Thief();
 
         } else {
-            CharacterStrategy playerCharacter = new Knight();
+            playerCharacter = new Knight();
             consoleOutput.writeln("It seems like you didn't pick an option the game gave so you get: " + playerCharacter.name());
         }
 
-
         consoleOutput.writeln("Loading game...");
         //setting up the game at the RoadStart
-        Location gameLocation = new Location(new RoadStart());
+        gameLocation = new Location(new RoadStart());
 
-        //setting locationId
-        currentLocationId = gameLocation.getLocationId();
+
 
         //getting the test for the location
         //TODO I don't need to be passing this around if I can just call gameLocation
@@ -98,11 +101,12 @@ public class Game {
 
         //game loop
         do {
-//            System.out.println("--------------------------------------- next loop from the do while ---------------------------------------");
             //there are some locations that aren't a user choice - first we check if it is a event(an event could be righting or trying to steal) then if it isn't then it goes to choice
             //TODO: I'm not sure if this is the best setup for this
 
-            if (checkEnding(currentLocationId)) {
+            if (checkEnding(gameLocation)) {
+
+
                 String wantsToPlayAgain;
 
                 //find out what ending it is and run the last text then ask if the player wants to play again
@@ -111,59 +115,63 @@ public class Game {
                 consoleOutput.writeln("Do you want to play again? Y : N");
                 wantsToPlayAgain = playerInput.readln().toLowerCase();
 
-                if (wantsToPlayAgain.equals("y")){
+                if (wantsToPlayAgain.equals("y")) {
                     consoleOutput.writeln("Sending player back to the menu");
                     return true;
 
-                }else {
+                } else {
                     consoleOutput.writeln("Understandable, have a great day!");
                     System.exit(0);
 
                 }
 
-            } else if (checkEvent(currentLocationId)) {
+            } else if (checkEvent(gameLocation)) {
                 //find out what event it is and run it
 //                System.out.println("TEST: this is an event");
-                Event newEvent = EventFactory.getEvent(currentLocationId);
-                currentLocationId = newEvent.runEvent();
+                Event newEvent = EventFactory.getEvent(gameLocation.getLocationId());
+                gameLocation = newEvent.runEvent();
+                System.out.println(gameLocation.getLocationId());
 
             } else {
 //                System.out.println("TEST: this is an user choice");
-                currentLocationId = userChoice(currentLocationId, gameLocation);
+                consoleOutput.writeln("before userChoice the location id is: " + gameLocation.getLocationId());
+                gameLocation = userChoice(gameLocation);
+                consoleOutput.writeln("after userChoice the location id is: " + gameLocation.getLocationId());
+
+
             }
         } while (true);
 
     }
 
-    private boolean checkEnding(int currentLocationId) {
-        //checks to see if the currentLocationId is an ending
+    private boolean checkEnding(Location gameLocation) {
+        //checks to see if the gameLocation.getLocationId() is an ending
         int[] endingLocation = LocationType.getTypeEnding();
-
         for (int x : endingLocation) {
-            if (x == currentLocationId) {
+            if (x == gameLocation.getLocationId()) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean checkEvent(int currentLocationId) {
-        //checks to see if the currentLocationId is an event
+    private boolean checkEvent(Location gameLocation) {
+        //checks to see if the gameLocation.getLocationId() is an event
         int[] eventLocation = LocationType.getTypeEvent();
         for (int x : eventLocation) {
-            if (x == currentLocationId) {
+            if (x == gameLocation.getLocationId()) {
                 return true;
             }
         }
         return false;
     }
 
-    private int userChoice(int currentLocationId, Location gameLocation) {
+    private Location userChoice(Location gameLocation) {
 
         Location choiceOne;
         Location choiceTwo;
 
-        switch (currentLocationId) {
+        switch (gameLocation.getLocationId()) {
             //the case is to find out what location the player is at with the id
             //aka case = Location ID
             case 0:
@@ -179,7 +187,8 @@ public class Game {
                 gameLocation = ifChoice(choiceOne, choiceTwo);
 
 //                location = gameLocation.getLocation();
-                return gameLocation.getLocationId();
+                System.out.println(gameLocation.getLocationId());
+                return gameLocation;
 
             case 1:
 
@@ -188,7 +197,8 @@ public class Game {
                 gameLocation = ifChoice(choiceOne, choiceTwo);
 
 //                location = gameLocation.getLocation();
-                return gameLocation.getLocationId();
+
+                return gameLocation;
 
             case 2:
                 //this is random because they might attack or they might not
@@ -204,7 +214,7 @@ public class Game {
                 }
 
 //                location = gameLocation.getLocation();
-                return gameLocation.getLocationId();
+                return gameLocation;
 
             case 5:
 
@@ -216,14 +226,31 @@ public class Game {
                 gameLocation = ifChoice(choiceOne, choiceTwo);
 
 //                location = gameLocation.getLocation();
-                return gameLocation.getLocationId();
+                return gameLocation;
+
+            case 10:
+
+                //TODO temp before logic is in to check if there is enough gold to pay the boss off
+                gameLocation = new Location(new RoadBossWin());
+
+                consoleOutput.writeln(gameLocation.getLocation());
+
+//                if (gold > 100) {
+//                    gameLocation = new Location(new RoadBossWin());
+//
+//                } else {
+//                    gameLocation = new Location(new RoadBossDeath());
+//                }
+                return gameLocation;
+
+
         }
 
         //it should never be able to get here
         System.out.println("at the end of userChoice return: " + gameLocation.getLocationId());
 
 //        location = gameLocation.getLocation();
-        return gameLocation.getLocationId();
+        return gameLocation;
     }
 
     //I don't want to have to repeat myself with if else (I think this is a good idea?)

@@ -1,9 +1,14 @@
 package TheRoad.Events;
 
+import TheRoad.Locations.BossEnd.RoadBoss;
+import TheRoad.Locations.BossEnd.RoadBossDeath;
+import TheRoad.Locations.BossEnd.RoadBossWin;
+import TheRoad.Locations.Location;
+
 public class BossFightEvent implements Event {
 
     @Override
-    public int runEvent() {
+    public Location runEvent() {
         boolean outcome;
 
         String eventInfo = "this is the boss event";
@@ -15,10 +20,10 @@ public class BossFightEvent implements Event {
 
         if (outcome) { // giving the id that I want to be the next location
             //if player is able beat the boss
-            return 13;
+            return new Location(new RoadBossWin());
         } else {
             //player is killed
-            return 12;
+            return new Location(new RoadBossDeath());
         }
 
     }

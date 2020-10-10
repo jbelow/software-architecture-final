@@ -1,9 +1,12 @@
 package TheRoad.Events;
 
+import TheRoad.Locations.BossEnd.RoadBoss;
+import TheRoad.Locations.Location;
+
 public class TalkToTravelersEvent implements Event {
 
     @Override
-    public int runEvent() {
+    public Location runEvent() {
 
 
         String eventInfo = "this is the talking with travelers event";
@@ -12,6 +15,6 @@ public class TalkToTravelersEvent implements Event {
 
         // giving the id that I want to be the next location
         //the only outcome it to head to the boss fight
-        return 5;
+        return new Location(new RoadBoss());
     }
 }
