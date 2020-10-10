@@ -28,17 +28,16 @@ public class Game {
     int choice = 0;
 
     private final Writer consoleOutput = new ConsoleWriter();
-    private final Reader playerIntInput = new KeyboardReader();
+    private final Reader playerInput = new KeyboardReader();
 
-    public void runGame() {
+    public boolean runGame() {
         int currentLocationId;
-        String location;
+//        String location;
         String playerCharacterChoice;
 
         CharacterStrategy display;
 
         consoleOutput.writeln("Before you begin please pick a class:");
-        System.out.println("");
         for (int i = 0; i < 3 ; i++) {
 
             switch (i) {
@@ -66,7 +65,7 @@ public class Game {
 
         }
         consoleOutput.writeln(">");
-        playerCharacterChoice = playerIntInput.readln();
+        playerCharacterChoice = playerInput.readln();
 
         if (playerCharacterChoice.equals("Knight")) {
             CharacterStrategy playerCharacter = new Knight();
@@ -92,7 +91,7 @@ public class Game {
 
         //getting the test for the location
         //TODO I don't need to be passing this around if I can just call gameLocation
-        location = gameLocation.getLocation();
+//        location = gameLocation.getLocation();
 
         consoleOutput.writeln("Game loaded :)");
 
@@ -104,11 +103,23 @@ public class Game {
             //TODO: I'm not sure if this is the best setup for this
 
             if (checkEnding(currentLocationId)) {
-                //find out what ending it is and run the last text then ask if the player wants to play again
-//                System.out.println("TEST: this is an ending");
+                String wantsToPlayAgain;
 
+                //find out what ending it is and run the last text then ask if the player wants to play again
                 consoleOutput.writeln(gameLocation.getLocation());
 
+                consoleOutput.writeln("Do you want to play again? Y : N");
+                wantsToPlayAgain = playerInput.readln().toLowerCase();
+
+                if (wantsToPlayAgain.equals("y")){
+                    consoleOutput.writeln("Sending player back to the menu");
+                    return true;
+
+                }else {
+                    consoleOutput.writeln("Understandable, have a great day!");
+                    System.exit(0);
+
+                }
 
             } else if (checkEvent(currentLocationId)) {
                 //find out what event it is and run it
@@ -118,7 +129,7 @@ public class Game {
 
             } else {
 //                System.out.println("TEST: this is an user choice");
-                currentLocationId = userChoice(currentLocationId, location, gameLocation);
+                currentLocationId = userChoice(currentLocationId, gameLocation);
             }
         } while (true);
 
@@ -147,23 +158,27 @@ public class Game {
         return false;
     }
 
-    private int userChoice(int currentLocationId, String location, Location gameLocation) {
+    private int userChoice(int currentLocationId, Location gameLocation) {
 
-        Location choiceOne = new Location(new RoadCamp());
-        Location choiceTwo = new Location(new RoadWalk());
+        Location choiceOne;
+        Location choiceTwo;
 
         switch (currentLocationId) {
             //the case is to find out what location the player is at with the id
             //aka case = Location ID
             case 0:
                 //writing out the location
-                consoleOutput.writeln(location);
+//                consoleOutput.writeln(location);
                 //now that it has read it all out and the id is 0 it should pass over all of the ifs and go to the else that sends the player to userChoice
-                choice = Integer.parseInt(playerIntInput.readln());
+
+                consoleOutput.writeln(gameLocation.getLocation());
+                choice = Integer.parseInt(playerInput.readln());
 
                 choiceOne = new Location(new RoadCamp());
                 choiceTwo = new Location(new RoadWalk());
                 gameLocation = ifChoice(choiceOne, choiceTwo);
+
+//                location = gameLocation.getLocation();
                 return gameLocation.getLocationId();
 
             case 1:
@@ -171,6 +186,8 @@ public class Game {
                 choiceOne = new Location(new RoadOtherTravelers());
                 choiceTwo = new Location(new RoadSteal());
                 gameLocation = ifChoice(choiceOne, choiceTwo);
+
+//                location = gameLocation.getLocation();
                 return gameLocation.getLocationId();
 
             case 2:
@@ -178,21 +195,34 @@ public class Game {
                 double x = Math.random();
                 if (x > 0.4) {
                     gameLocation = new Location(new RoadBanditAttack());
+
+
                 } else {
                     consoleOutput.writeln("You are all rested up, but it looks like that means you are send right to the boss of this game...");
                     gameLocation = new Location(new RoadBoss());
+
                 }
+
+//                location = gameLocation.getLocation();
                 return gameLocation.getLocationId();
 
             case 5:
+
+                consoleOutput.writeln(gameLocation.getLocation());
+                choice = Integer.parseInt(playerInput.readln());
+
                 choiceOne = new Location(new RoadBossPayOff());
                 choiceTwo = new Location(new RoadBossFight());
                 gameLocation = ifChoice(choiceOne, choiceTwo);
+
+//                location = gameLocation.getLocation();
                 return gameLocation.getLocationId();
         }
 
         //it should never be able to get here
         System.out.println("at the end of userChoice return: " + gameLocation.getLocationId());
+
+//        location = gameLocation.getLocation();
         return gameLocation.getLocationId();
     }
 

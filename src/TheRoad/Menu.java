@@ -19,18 +19,23 @@ public class Menu {
         new Game().runGame();
 
         new Menu().startMenu();
+
+
     }
 
     public void startMenu() {
+        Game game = new Game();
+        boolean playAgain = false;
+
         int choice = 0;
-        while (choice != 3) {
+
+        while (playAgain) {
             printMenu();
             choice = Integer.parseInt(playerIntInput.readln());
 
             switch (choice) {
                 case 1:
-                    consoleOutput.writeln("Loading a new game!");
-                    new Game().runGame();
+                    playAgain = game.runGame();
                     break;
                 case 2:
                     //get info
