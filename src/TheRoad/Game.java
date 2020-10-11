@@ -16,9 +16,9 @@ import TheRoad.Characters.*;
  * NOTE TO THE TEACHER: I haven't added all of the logic yet for the userChoice (besides id: 0 and 2 to make sure it works)
  * or the events (I want to add NPCs aka the traveler, bandits and the boss for the player to interact with)
  * Is it fine that the game will move to the event and run there for everything that will happen? the idea is that the fighting/talking with NPCs will be handled there
- *
+ * <p>
  * right now the game will just looping a broken away but all the necessary classes should be in place to prevent that when I reconstruct all the locations are all connected fully
- *
+ * <p>
  * Any System.out.println are temp and meant for debugging
  */
 
@@ -97,6 +97,8 @@ public class Game {
 
             if (checkEnding(gameLocation)) {
 
+                consoleOutput.writeln(gameLocation.getLocation());
+
                 String wantsToPlayAgain;
 
                 consoleOutput.writeln("Do you want to play again? Y : N");
@@ -123,7 +125,7 @@ public class Game {
             } else {
 //              System.out.println("TEST: this is an user choice");
 //              consoleOutput.writeln("before userChoice the location id is: " + gameLocation.getLocationId());
-                gameLocation = userChoiceAndSimpleLogic(gameLocation);
+                gameLocation = userChoiceAndSimpleLogic(gameLocation, playerCharacter);
 //              consoleOutput.writeln("after userChoice the location id is: " + gameLocation.getLocationId());
 
 
@@ -154,7 +156,7 @@ public class Game {
         return false;
     }
 
-    private Location userChoiceAndSimpleLogic(Location gameLocation) {
+    private Location userChoiceAndSimpleLogic(Location gameLocation, CharacterStrategy playerCharacter) {
 
         Location choiceOne;
         Location choiceTwo;
@@ -179,6 +181,8 @@ public class Game {
                 return gameLocation;
 
             case 1:
+                consoleOutput.writeln(gameLocation.getLocation());
+                choice = Integer.parseInt(playerInput.readln());
 
                 choiceOne = new Location(new RoadOtherTravelers());
                 choiceTwo = new Location(new RoadSteal());
@@ -201,7 +205,6 @@ public class Game {
 
                 }
 
-//                location = gameLocation.getLocation();
                 return gameLocation;
 
             case 5:
@@ -214,6 +217,24 @@ public class Game {
                 gameLocation = ifChoice(choiceOne, choiceTwo);
 
 //                location = gameLocation.getLocation();
+                return gameLocation;
+
+            case 6:
+
+                consoleOutput.writeln(gameLocation.getLocation());
+
+                double speed = playerCharacter.getSpeed();
+                double y = Math.random() + (speed / 100);
+                consoleOutput.writeln("you need a 0.8 or better to steal and you got: " + String.format("%.1f", y));
+                if (y > 0.8) {
+                    consoleOutput.writeln("It looks like you got away wit stealing from them... I hope you feel ok about this...");
+                    gameLocation = new Location(new RoadBoss());
+
+                } else {
+                    gameLocation = new Location(new RoadStealFail());
+                    consoleOutput.writeln(gameLocation.getLocation());
+
+                }
                 return gameLocation;
 
             case 7:

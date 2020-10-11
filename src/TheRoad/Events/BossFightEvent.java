@@ -2,6 +2,7 @@ package TheRoad.Events;
 
 import TheRoad.Characters.CharacterStrategy;
 import TheRoad.Characters.EnemyBandits;
+import TheRoad.Characters.EnemyOswyn;
 import TheRoad.Locations.BossEnd.RoadBoss;
 import TheRoad.Locations.BossEnd.RoadBossDeath;
 import TheRoad.Locations.BossEnd.RoadBossWin;
@@ -17,7 +18,7 @@ public class BossFightEvent implements Event {
     @Override
     public Location runEvent(CharacterStrategy playerCharacter, Location gameLocation) {
 
-        CharacterStrategy enemy = new EnemyBandits();
+        CharacterStrategy enemy = new EnemyOswyn();
         System.out.println(gameLocation.getLocation());
 
         //battle loop - this should be abstracted out become it is the same in more than one event
