@@ -121,10 +121,10 @@ public class Game {
                 System.out.println(gameLocation.getLocationId());
 
             } else {
-//                System.out.println("TEST: this is an user choice");
-//                consoleOutput.writeln("before userChoice the location id is: " + gameLocation.getLocationId());
-                gameLocation = userChoice(gameLocation);
-//                consoleOutput.writeln("after userChoice the location id is: " + gameLocation.getLocationId());
+//              System.out.println("TEST: this is an user choice");
+//              consoleOutput.writeln("before userChoice the location id is: " + gameLocation.getLocationId());
+                gameLocation = userChoiceAndSimpleLogic(gameLocation);
+//              consoleOutput.writeln("after userChoice the location id is: " + gameLocation.getLocationId());
 
 
             }
@@ -133,7 +133,7 @@ public class Game {
     }
 
     private boolean checkEnding(Location gameLocation) {
-        //checks to see if the gameLocation.getLocationId() is an ending
+        //checks to see if the gameLocation.getLocationId() is an ending+
         int[] endingLocation = LocationType.getTypeEnding();
         for (int x : endingLocation) {
             if (x == gameLocation.getLocationId()) {
@@ -154,7 +154,7 @@ public class Game {
         return false;
     }
 
-    private Location userChoice(Location gameLocation) {
+    private Location userChoiceAndSimpleLogic(Location gameLocation) {
 
         Location choiceOne;
         Location choiceTwo;
@@ -164,7 +164,7 @@ public class Game {
             //aka case = Location ID
             case 0:
                 //writing out the location
-//                consoleOutput.writeln(location);
+//              consoleOutput.writeln(location);
                 //now that it has read it all out and the id is 0 it should pass over all of the ifs and go to the else that sends the player to userChoice
 
                 consoleOutput.writeln(gameLocation.getLocation());
@@ -174,7 +174,7 @@ public class Game {
                 choiceTwo = new Location(new RoadWalk());
                 gameLocation = ifChoice(choiceOne, choiceTwo);
 
-//                location = gameLocation.getLocation();
+//              location = gameLocation.getLocation();
                 System.out.println(gameLocation.getLocationId());
                 return gameLocation;
 
@@ -209,26 +209,25 @@ public class Game {
                 consoleOutput.writeln(gameLocation.getLocation());
                 choice = Integer.parseInt(playerInput.readln());
 
-                choiceOne = new Location(new RoadBossPayOff());
+                choiceOne = new Location(new RoadBossPass());
                 choiceTwo = new Location(new RoadBossFight());
                 gameLocation = ifChoice(choiceOne, choiceTwo);
 
 //                location = gameLocation.getLocation();
                 return gameLocation;
 
-            case 10:
-
-                //TODO temp before logic is in to check if there is enough gold to pay the boss off
-                gameLocation = new Location(new RoadBossWin());
-
+            case 7:
                 consoleOutput.writeln(gameLocation.getLocation());
 
-//                if (gold > 100) {
-//                    gameLocation = new Location(new RoadBossWin());
-//
-//                } else {
-//                    gameLocation = new Location(new RoadBossDeath());
-//                }
+                gameLocation = new Location(new RoadBoss());
+
+                return gameLocation;
+
+            case 10:
+                consoleOutput.writeln(gameLocation.getLocation());
+
+                gameLocation = new Location(new RoadBossWin());
+
                 return gameLocation;
 
 

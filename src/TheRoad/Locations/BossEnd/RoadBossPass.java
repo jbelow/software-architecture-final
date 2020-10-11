@@ -2,10 +2,10 @@ package TheRoad.Locations.BossEnd;
 
 import TheRoad.Locations.LocationStrategy;
 
-public class RoadBossPayOff implements LocationStrategy {
+public class RoadBossPass implements LocationStrategy {
     @Override
     public String getLocation() {
-        return null;
+        return "I'm glad that you don't want to fight me. You would have lost anyways...";
     }
 
     @Override

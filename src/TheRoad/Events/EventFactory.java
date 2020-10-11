@@ -8,9 +8,6 @@ public class EventFactory {
         if (currentLocationId == 3) {
             return new BanditAttackEvent();
 
-        } else if (currentLocationId == 6) {
-            return new StealEvent();
-
         } else if (currentLocationId == 11) {
             return new BossFightEvent();
         }

@@ -41,7 +41,6 @@ public class Menu {
     public void startMenu() {
 
         Game game = new Game();
-
         int choice;
 
         //fun forever loop

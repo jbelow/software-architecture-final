@@ -26,6 +26,7 @@ public class BanditAttackEvent implements Event {
             consoleOutput.writeln("You hit " + enemy.getName() + " for " + playerCharacter.getDamage());
             consoleOutput.writeln("The health of the " + enemy.getName() + " is now " + enemy.getHealth());
             if (enemy.getHealth() <= 0) {
+                consoleOutput.writeln("Yay, you won!");
                 return new Location(new RoadBoss());
             }
 
@@ -33,6 +34,7 @@ public class BanditAttackEvent implements Event {
             consoleOutput.writeln("You got hit for " + enemy.getDamage());
             consoleOutput.writeln("your health is now " + playerCharacter.getHealth());
             if (playerCharacter.getHealth() <= 0) {
+                consoleOutput.writeln("You lost all of your health... how sad");
                 return new Location(new RoadBanditAttackDeath());
             }
         }
